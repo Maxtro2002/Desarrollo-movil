@@ -12,55 +12,102 @@ void main(List<String> args) {
 
   print("Ingrese la cantidad de pacientes de la semana: ");
   int pacientes = int.parse(stdin.readLineSync().toString());
+
+  while (pacientes <= 0) {
+    print("""=====================================================
+Por favor ingrese un valor positivo mayor a 0
+=====================================================""");
+
+    print("Ingrese la cantidad de pacientes de la semana: ");
+    pacientes = int.parse(stdin.readLineSync().toString());
+  }
+
   print("=====================================================");
 
-  for(int i = 0; i < pacientes; i++){
-    print("""Ingrese cual es su sexo: 
+  for (int i = 0; i < pacientes; i++) {
+    var sexo = 0;
+    var estCivil = 0;
+    var edad = 0;
+
+    print("""Ingrese el sexo del paciente # ${i+1}: 
   1. Hombre  
   2. Mujer""");
 
-  int sexo = int.parse(stdin.readLineSync().toString());
+    sexo = int.parse(stdin.readLineSync().toString());
 
-  if(sexo == 1){
-    hombres++;
-  }
+    while (sexo != 1 && sexo != 2) {
+      print("""=====================================================
+Por favor ingrese uno de los valores que se especifican
+=====================================================\n""");
+      print("""Ingrese el sexo del paciente # ${i+1}: 
+  1. Hombre  
+  2. Mujer""");
 
-  print("""ingrese su estado civil: 
+      sexo = int.parse(stdin.readLineSync().toString());
+    }
+
+    if (sexo == 1) {
+      hombres++;
+    }
+
+    print("""ingrese el estado civil del paciente # ${i+1}: 
   1. Soltero  
   2. Casado
   3. Viudo""");
 
-  int estCivil = int.parse(stdin.readLineSync().toString());
-  if(estCivil == 1){
-    personasSolteras++;
-  }
+    estCivil = int.parse(stdin.readLineSync().toString());
 
-  if(estCivil == 1 && sexo == 1){
-    hombreSoltero++;
-  }
+    while (3 < estCivil || estCivil <= 0) {
+      print("""=====================================================
+Por favor ingrese uno de los valores que se especifican
+=====================================================\n""");
+      print("""ingrese el estado civil del paciente # ${i+1}: 
+  1. Soltero  
+  2. Casado
+  3. Viudo""");
 
-  if(estCivil == 1 && sexo == 2){
-    mujerSoltera++;
-  }
+      estCivil = int.parse(stdin.readLineSync().toString());
+    }
 
-  print("ingrese cual es su edad: ");
+    if (estCivil == 1) {
+      personasSolteras++;
+    }
 
-  int edad = int.parse(stdin.readLineSync().toString()); 
-  
-  if(sexo == 1 && estCivil == 2){
-    edadPromedio += edad;
-    hombresCasados++;
-  }
+    if (estCivil == 1 && sexo == 1) {
+      hombreSoltero++;
+    }
 
-  print("=====================================================");
+    if (estCivil == 1 && sexo == 2) {
+      mujerSoltera++;
+    }
+    print("ingrese la edad del paciente ${i+1}: ");
+
+    edad = int.parse(stdin.readLineSync().toString());
+
+    while (edad <= 0) {
+      print("""=====================================================
+Por favor ingrese una edad positiva
+=====================================================\n""");
+
+      print("ingrese la edad del paciente ${i+1}: ");
+
+      edad = int.parse(stdin.readLineSync().toString());
+    }
+
+    if (sexo == 1 && estCivil == 2) {
+      edadPromedio += edad;
+      hombresCasados++;
+    }
+
+    print("=====================================================");
   }
-  var calcProm = ((hombreSoltero*100)/hombres);
+  var calcProm = ((hombreSoltero * 100) / hombres);
   print("El porcentaje de hombres solteros es de: $calcProm");
 
-  var calcEdad = edadPromedio/hombresCasados;
+  var calcEdad = edadPromedio / hombresCasados;
   print("La edad promedio de los hombres casados es de: $calcEdad");
 
-  var calcMujeresSolteras = ((mujerSoltera*100)/personasSolteras);
-  print("El porcebtaje de mujeres solteras en relacion a las personas solteras es de: $calcMujeresSolteras");
-  
+  var calcMujeresSolteras = ((mujerSoltera * 100) / personasSolteras);
+  print(
+      "El porcebtaje de mujeres solteras en relacion a las personas solteras es de: $calcMujeresSolteras");
 }
