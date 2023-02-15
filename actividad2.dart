@@ -6,25 +6,26 @@ void main(List<String> args) {
   String host = "api.chucknorris.io";
   String path = "/jokes/random";
   List<Joke> jokes = [];
-
-  getJoke(host, path).then((result){
-    String body =  result.body;
-    var resultJson = jsonDecode(body);
-    for (int i = 0; i < 2; i++) {
-     jokes.add(Joke.fromJson(resultJson));
-    }
-    print(jokes);
-
-  });
+  int cantidad = 50;
+  for (int i = 0; i < cantidad; i++) {
+    getJoke(host, path).then((result) {
+      String body = result.body;
+      var resultJson = jsonDecode(body);
+      jokes.add(Joke.fromJson(resultJson));
+      if(jokes.length == cantidad){
+        print(jokes);
+      }
+    });
+  }
 }
 
-Future<http.Response> getJoke(String host, String path) async{
+Future<http.Response> getJoke(String host, String path) async {
   Uri url = Uri.http(host, path);
   var result = await http.get(url);
   return result;
 }
 
-class Joke{
+class Joke {
   late String created_at;
   late String icon_url;
   late String id;
@@ -32,7 +33,7 @@ class Joke{
   late String url;
   late String value;
 
-  Joke.fromJson(Map<String, dynamic> json){
+  Joke.fromJson(Map<String, dynamic> json) {
     this.created_at = json["created_at"];
     this.icon_url = json["icon_url"];
     this.id = json["id"];
@@ -42,8 +43,6 @@ class Joke{
   }
   @override
   String toString() {
-    // return '\n{ ${this.created_at}, ${this.icon_url}, ${this.id}, ${this.updated_at},, ${this.url}, ${this.value} }\n';
-    return(value);
+    return '\n{ ${this.created_at}, ${this.icon_url}, ${this.id}, ${this.updated_at},, ${this.url}, ${this.value} }\n';
   }
-
 }
