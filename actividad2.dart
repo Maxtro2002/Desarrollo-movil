@@ -2,21 +2,19 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-void main(List<String> args) {
+void main(List<String> args) async{
   String host = "api.chucknorris.io";
   String path = "/jokes/random";
   List<Joke> jokes = [];
-  int cantidad = 50;
+  int cantidad = 2;
   for (int i = 0; i < cantidad; i++) {
-    getJoke(host, path).then((result) {
+    await getJoke(host, path).then((result) {
       String body = result.body;
       var resultJson = jsonDecode(body);
-      jokes.add(Joke.fromJson(resultJson));
-      if(jokes.length == cantidad){
-        print(jokes);
-      }
+      jokes.add(Joke.fromJson(resultJson));   
     });
   }
+  print(jokes);
 }
 
 Future<http.Response> getJoke(String host, String path) async {
