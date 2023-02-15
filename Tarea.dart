@@ -80,7 +80,7 @@ Por favor ingrese uno de los valores que se especifican
     if (estCivil == 1 && sexo == 2) {
       mujerSoltera++;
     }
-    print("ingrese la edad del paciente ${i+1}: ");
+    print("ingrese la edad del paciente # ${i+1}: ");
 
     edad = int.parse(stdin.readLineSync().toString());
 
@@ -89,7 +89,7 @@ Por favor ingrese uno de los valores que se especifican
 Por favor ingrese una edad positiva
 =====================================================\n""");
 
-      print("ingrese la edad del paciente ${i+1}: ");
+      print("ingrese la edad del paciente #${i+1}: ");
 
       edad = int.parse(stdin.readLineSync().toString());
     }
