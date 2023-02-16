@@ -6,7 +6,7 @@ void main(List<String> args) async{
   String host = "api.chucknorris.io";
   String path = "/jokes/random";
   List<Joke> jokes = [];
-  int cantidad = 2;
+  int cantidad = 50;
   for (int i = 0; i < cantidad; i++) {
     await getJoke(host, path).then((result) {
       String body = result.body;
